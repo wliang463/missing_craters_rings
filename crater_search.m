@@ -1,8 +1,11 @@
-function [ee,counts,rads] = crater_search(excel,eig,grav)
+function [counts,rads] = crater_search(excel,eig,grav)
 
 %excel: crater catalog
 %eig: Bouguer gravity gradient
 %grav: Bouguer gravity
+
+%counts: number of detected craters
+%rads: radius of detected craters
 
 eig(1,:) = [];
 eig(:,1) = []; 
@@ -32,7 +35,6 @@ good_bin = zeros(numel(edges),1);
 
 e_arr = (0:0.005:0.4);
 
-ee = [];
 radius = [];
 bad = 0;
 skipped = 0;
