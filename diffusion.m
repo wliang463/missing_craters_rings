@@ -1,4 +1,4 @@
-function topof = diffusion_2d_mod4(topo)
+function topof = diffusion(topo)
 
 siz1 = size(topo,1);
 siz2 = size(topo,2);
