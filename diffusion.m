@@ -1,5 +1,7 @@
 function topof = diffusion(topo)
 
+%topo: topography of the Moon
+
 siz1 = size(topo,1);
 siz2 = size(topo,2);
 
