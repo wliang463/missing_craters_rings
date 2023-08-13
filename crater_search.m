@@ -1,6 +1,6 @@
 function [ee,counts,rads] = crater_search(excel,eig,grav)
 
-%excel : crater catalog
+%excel: crater catalog
 %eig: Bouguer gravity gradient
 %grav: Bouguer gravity
 
