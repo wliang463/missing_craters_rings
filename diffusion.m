@@ -15,13 +15,7 @@ theta = repmat(linspace(0.1,179.9,siz1)',1,siz2);
 
 lats = flipud(repmat(linspace(-90,90,siz1)',1,siz2));
 theta = repmat(linspace(0,180,siz1)',1,siz2);
-%{
-lats = lats(round(siz1/6):round(siz1*5/6),:);
-theta = theta(round(siz1/6):round(siz1*5/6),:);
-topo = topo(round(siz1/6):round(siz1*5/6),:);
-%}
 
-%lats = lats(236:1770,:);
 theta = theta(8:1500,:);
 topo = topo(8:1500,:);
 
@@ -30,19 +24,12 @@ D = 1;%9e-7*3.154e7;%5.5/1e6;
 dtheta = pi/siz1;
 dphi = 2*pi/siz2;
 
-%lons   =repmat(linspace(1,360,siz2),siz1, 1);
-%dx = cosd(lats)*2*pi*1737*1/2003;
-%dy = ones(size(dx))*pi*1737/siz1;
-
-%dt = 1e-6;
 t0 = 1e6;
 
-dt = 1e2;%0.5*(1737e3*dphi*cosd(lats)).^2/(2*D);
-%dt = 0.5*(1737e3*dphi*cosd(lats)).^2/(2*D);
+dt = 1e2;
 tic
 
-load('topof_1000000.mat')
-for i=1:1e7%1e20%linspace(1,num,steps)
+for i=1:1e7
     down_1 = circshift(topo,-1,1);down1 = circshift(topo,1,1);
     side_1 = circshift(topo,-1,2);side1 = circshift(topo,1,2);
     
@@ -62,9 +49,6 @@ for i=1:1e7%1e20%linspace(1,num,steps)
     
     dz_dt = (theta_portion + phi_portion + r_portion)*D;
     %(dz_dx.*dx.^(-1) + dz_dy.*dy.^(-1))*D;x`
-    
-   % dt = 1e3;
-    %dt = 0.9*(1737e3*dphi*cosd(lats)).^2/(2*D);
     
     topo = topo + dz_dt.*dt;    
     
@@ -88,28 +72,14 @@ for i=1:1e7%1e20%linspace(1,num,steps)
         toc
         save(['topof_' num2str(i) '_check.mat'],'topo');
     end
-    %{
-    imagesc(theta_portion);axis equal;colorbar
-    saveas(gcf,['diffusion' num2str(i) '.png'])
-    imagesc(phi_portion);axis equal;colorbar
-    saveas(gcf,['diffusion' num2str(i) '_phi.png'])
     
-    %}
     
 end
-%{
-imagesc((topo-1737e3)/1e3);axis equal;colorbar; caxis([-6 7]);
-title('topo')
-saveas(gcf,['diffusion' num2str(i) '_topo.png'])
-%}
+
 topo0(236:1770,:) = topo;
 topo0(1:235,:) = 1737e3;
 topo0(1771:end,:) = 1737e3;
-%{
-topo0(round(siz1/6):round(siz1*5/6),:) = topo;
-topo0(1:round(siz1/6)-1,:) = 1737e3;
-topo0(round(siz1*5/6)+1:end,:) = 1737e3;
-%}
+
 
 topof = topo0;
 
