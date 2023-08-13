@@ -1,4 +1,4 @@
-function [tempf,depth]= tneal6()
+function [tempf,depth]= tneal()
 
 %50m resolution
 %1km lava, not held at constant temp
