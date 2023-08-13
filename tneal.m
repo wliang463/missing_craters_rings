@@ -292,18 +292,6 @@ set(gcf,'color','w')
 set(ax, 'YTick', 20:20:200)
 caxis([251.9913 1423])
 
-%{
-figure;imagesc(temp);colorbar
-xlabel('Distance (km)','FontSize',40)
-xticklabels(xtt)
-ylabel('Depth (km)','FontSize',40);
-yticklabels(ytt)
-title('Initial Temperature (K)')
-ax = gca;
-ax.FontSize = 24; 
-set(gcf,'color','w')
-set(ax, 'YTick', 20:20:200)
-%}
 
 save depths.mat depths
 save annealed.mat annealed
