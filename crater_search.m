@@ -1,4 +1,8 @@
-function [ee,counts,rads] = crater_search_jah_combo(excel,eig,grav)
+function [ee,counts,rads] = crater_search(excel,eig,grav)
+
+%excel : crater catalog
+%eig: Bouguer gravity gradient
+%grav: Bouguer gravity
 
 eig(1,:) = [];
 eig(:,1) = []; 
