@@ -94,14 +94,11 @@ for i=1:siz(1)
     
     switch side
         case 'far'
-            %cond = x0 < 334 || x0 > 724 || y0 < 207 || y0 > 501;
             cond = ~bw_f(ind1);
         case 'near'
-            %cond = x0 < 1113 || x0 > 1503 || y0 < 207 || y0 > 501;
             cond = ~bw_n(ind1);
-            %cond = mask1;
     end
-    if cond%x0 < 1113 || x0 > 1503 || y0 < 207 || y0 > 501%%mask1(ind1) == 0%abs(excel(i,1)) < 90%% || i == 773
+    if cond
         rads(i) = nan;
         skipped = skipped + 1;
         continue
@@ -188,9 +185,6 @@ cdf = cdf/max(cdf);
 
 good = numel(data);
 
-%good = siz(1)-bad-skipped;
-%good = siz(1)-sum(isnan(rads))-sum(rads == 0);
-
 save crater_search_far_flip.mat good cdf r_p counts rads data
 
 end
@@ -203,16 +197,7 @@ function [xx,yy] = get_xy(x0,y0,a)
     xx = [];
     yy = [];
     lat = y0;
-    %a = (b^2/(1-e^2))^0.5;
-    %{
-    if y0<=501
-        lat = 90-y0/501*90;
-    else
-        lat = -(y0-501)/501*90;
-    end
-    %}
-    
-    %dlong = acosd((cos(a/1737)-sind(lat)^2)/cosd(lat)^2);
+  
     dlong = a/(1737*cosd(lat));
     r = dlong/(2*pi)*siz2;
     
@@ -253,21 +238,14 @@ function [xx,yy] = get_xy(x0,y0,a)
     xx(xx0>-siz2 & xx0<1) = xx(xx0>-siz2 & xx0<1)+siz2;
     xx(xx0<=-siz2) = 1;
 
-    %yy(yy0>siz1) = yy(yy0>siz1)-siz1;
-    yy(yy0>siz1) = siz1;%xx(yy0>siz1) = nan;
-    yy(yy0<1) = 1;%xx(yy0<1) = nan;
+    yy(yy0>siz1) = siz1;
+    yy(yy0<1) = 1;
     
     xx0 = xx;
 
     xx(xx0>siz2 & xx0<2*siz2) = xx(xx0>siz2 & xx0<2*siz2)-siz2;
     xx(xx0>=2*siz2) = siz2;
-    %{
-    yy(yy0<1) = yy(yy0<1)+siz1;
-    xx(xx0<1) = xx(xx0<1)+siz2;
-    
-    yy(yy0>siz1) = yy(yy0>siz1)-siz1;
-    xx(xx0>siz2) = xx(xx0>siz2)-siz2;
-    %}
+
 end
 
 function eig_in = eigin(xx,yy,eig)
@@ -293,7 +271,6 @@ function eig_in = eigin(xx,yy,eig)
 end
 
 function rim_f = rimf(rim)
-    %rim = unique(rim);
 
     rimm = [rim rim];
     grid = round(numel(rim)*0.3);%continuous measurement of 0.3 of the rim
