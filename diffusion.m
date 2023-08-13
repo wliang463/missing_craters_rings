@@ -19,7 +19,7 @@ theta = repmat(linspace(0,180,siz1)',1,siz2);
 theta = theta(8:1500,:);
 topo = topo(8:1500,:);
 
-D = 1;%9e-7*3.154e7;%5.5/1e6;
+D = 1;
 
 dtheta = pi/siz1;
 dphi = 2*pi/siz2;
@@ -48,7 +48,6 @@ for i=1:1e7
     r_portion = 2*(topo).^(-1);
     
     dz_dt = (theta_portion + phi_portion + r_portion)*D;
-    %(dz_dx.*dx.^(-1) + dz_dy.*dy.^(-1))*D;x`
     
     topo = topo + dz_dt.*dt;    
     
