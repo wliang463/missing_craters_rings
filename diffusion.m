@@ -1,6 +1,7 @@
 function topof = diffusion(topo)
 
 %topo: topography of the Moon
+%topof: diffused topography
 
 siz1 = size(topo,1);
 siz2 = size(topo,2);
