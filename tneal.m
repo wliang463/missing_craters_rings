@@ -236,22 +236,8 @@ for i=1:t0%linspace(1,num,steps)
 
     end
 end
-%{
-imagesc((temp-1737e3)/1e3);axis equal;colorbar; caxis([-6 7]);
-title('temp')
-saveas(gcf,['diffusion' num2str(i) '_temp.png'])
-%}
-%temp0(236:1770,:) = temp;
-%temp0(1:235,:) = 1737e3;
-%temp0(1771:end,:) = 1737e3;
-%{
-temp0(round(siz1/6):round(siz1*5/6),:) = temp;
-temp0(1:round(siz1/6)-1,:) = 1737e3;
-temp0(round(siz1*5/6)+1:end,:) = 1737e3;
-%}
 
 tempf = temp;
-%
 
 
 inds = find(tempf(:)>923);
