@@ -173,48 +173,6 @@ for i=1:siz(1)
        
 
     end
-    
-   
-    
-    %{
-    [rim,ind] = max(vals,[],1);
-    rads{i} = a(ind);
-    
-    radz = unique(rads{i});
-    
-    xx = [];
-    yy = [];
-    for a=radz
-        [xx0,yy0] = get_xy(excel(i,1),excel(i,2),a);
-        ii = find(rads{i} == a);
-        xx(ii) = xx0(ii);
-        yy(ii) = yy0(ii);
-    end
-    
-    %xt = x00; yt = y00;
-    %xt(xx0 > max(xx) | xx0 < min(xx) | yy0 > max(yy) | yy0 < min(yy)) = [];
-    %yt(xx0 > max(xx) | xx0 < min(xx) | yy0 > max(yy) | yy0 < min(yy)) = [];
-    
-    %in = inpolygon(x00(:)',y00(:)',xx,yy);
-    
-    %}
-    
-    %{
-    
-    if max(rim_f)<12%quantile(rim,0.4)<12
-        rads{i} = nan;
-        bad = bad+1;
-        continue 
-    elseif quantile(eig_in,0.5) > 0 %quantile(eig_in,0.2) > 0
-        rads{i} = nan;
-        bad = bad+1;
-%        disp('inside')
-        continue
-    end
-    
-    data = [data excel(i,3)];
-    %}
-    
 
 end
 
